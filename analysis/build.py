@@ -1,10 +1,16 @@
-import pandas as pd, numpy as np, warnings, re, json
+import pandas as pd, numpy as np, warnings, re, json, os
 warnings.filterwarnings('ignore')
-F={2014:r"C:/Users/Administrator/Desktop/病例数据/颅脑外伤合并下肢骨折 病例收集(2014).xlsx",
-   2015:r"C:/Users/Administrator/Desktop/病例数据/颅脑外伤合并下肢骨折 病例收集(2015).xlsx",
-   2016:r"C:/Users/Administrator/Desktop/病例数据/颅脑外伤合并下肢骨折 病例收集(2016).xlsx",
-   2017:r"C:/Users/Administrator/Desktop/病例数据/颅脑外伤合并下肢骨折 病例收集(2017).xlsx",
-   2018:r"C:/Users/Administrator/Desktop/病例数据/颅脑外伤合并下肢骨折 病例收集2018【1-5】.xlsx"}
+# 数据源：优先项目内 raw_clinical/（已归档），回退原始桌面路径
+_Here=os.path.dirname(os.path.abspath(__file__))
+_LOCAL=os.path.join(_Here,'..','raw_clinical')
+_DESK=r"C:/Users/Administrator/Desktop/病例数据"
+SRC=_LOCAL if os.path.isdir(_LOCAL) else _DESK
+print("数据源目录:",SRC)
+F={2014:os.path.join(SRC,"颅脑外伤合并下肢骨折 病例收集(2014).xlsx"),
+   2015:os.path.join(SRC,"颅脑外伤合并下肢骨折 病例收集(2015).xlsx"),
+   2016:os.path.join(SRC,"颅脑外伤合并下肢骨折 病例收集(2016).xlsx"),
+   2017:os.path.join(SRC,"颅脑外伤合并下肢骨折 病例收集(2017).xlsx"),
+   2018:os.path.join(SRC,"颅脑外伤合并下肢骨折 病例收集2018【1-5】.xlsx")}
 LAB=['WBC','血红蛋白','血色素','血小板','PT','活动度','INR','FIB','部分凝血','D-二聚体','MA值','胆固醇','甘油三酯','高密度脂蛋白','低密度脂蛋白']
 allrows=[]
 for y,p in F.items():
