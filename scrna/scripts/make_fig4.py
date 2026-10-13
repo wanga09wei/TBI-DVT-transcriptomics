@@ -69,7 +69,8 @@ for g in GENES:
     for pid in sub.index:
         r = stats.spearmanr(sub.loc[pid, cols].values.astype(float),
                             [sev_of[c] for c in cols], nan_policy='omit')
-        if best is None or r[1] < best[1]:
+        # best = (probe_id, statistic, pvalue); compare pvalue against stored pvalue
+        if best is None or r[1] < best[2]:
             best = (pid, r[0], r[1])
     probe_of[g] = best[0]
     rows.append({'gene': g, 'probe': best[0], 'rho_severity': best[1], 'P_severity': best[2]})
