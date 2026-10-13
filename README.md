@@ -96,6 +96,6 @@ python scripts/S7_module_KO_and_network.py
 
 ## 7. Citation and licence
 
-Code and summary tables are released under the MIT licence (see `LICENSE`). Please cite the manuscript above; a `CITATION.cff` is provided.
+Code and summary tables are released under the MIT licence (see `LICENSE`). This licence covers the analysis code and the de-identified summary tables only; it grants no right to the restricted clinical source records, which are not distributed here. Please cite the manuscript above; a `CITATION.cff` is provided.
 
 > This repository is a research record, not a clinical tool. Nothing here is intended for diagnostic or therapeutic use.
