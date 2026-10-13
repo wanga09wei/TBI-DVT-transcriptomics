@@ -1,0 +1,31 @@
+[load] S2 亚型对象 (6483, 2000) | obs: ['sample', 'patient', 'region', 'n_genes_by_counts', 'total_counts', 'total_counts_mt', 'pct_counts_mt', 'total_counts_ribo', 'pct_counts_ribo', 'leiden', 'score_EC', 'score_Arterial']
+[subset] 内皮亚型细胞 5755/6483（剔除壁细胞，避免伪梯度）
+[DPT] root = GTCCTCAGTTCTCGTC-1-2 (subtype=Capillary, m_Tip_stalk=1.236)
+
+[PAGA] 亚型连通性:
+           Arterial  Capillary  Venous
+Arterial      0.000      0.110   0.049
+Capillary     0.110      0.000   0.048
+Venous        0.049      0.048   0.000
+
+[DPT] 亚型×区域 拟时序中位:
+  subtype     region  count   median
+ Arterial     center   1976 0.431680
+ Arterial peripheral    252 0.426336
+Capillary     center   1354 0.291714
+Capillary peripheral    908 0.234528
+   Venous     center   1228 0.718742
+   Venous peripheral     37 0.606318
+
+[DPT] 亚型内 中心 vs 外周 拟时序检验:
+  subtype  n_center  n_periph  median_center  median_periph  P_center_vs_periph
+ Arterial      1976       252         0.4317         0.4263        1.335698e-02
+Capillary      1354       908         0.2917         0.2345        8.098939e-07
+   Venous      1228        37         0.7187         0.6063        1.546571e-05
+
+[expr] 全基因对象 (6483, 33538) | 与亚型对象交集 5755
+
+[trend] 基因沿拟时序趋势表已存
+
+[saved] D:/TBI_DVT_Study\figures\Fig8_endothelial_pseudotime.png
+[saved] GSE182398_S8_pseudotime.h5ad

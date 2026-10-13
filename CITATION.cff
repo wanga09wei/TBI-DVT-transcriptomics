@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+message: "If you use this code or these summary tables, please cite the accompanying manuscript."
+type: software
+title: "Injury-centre endothelium shifts towards a procoagulant venous state in traumatic brain injury: analysis code and de-identified summary tables"
+abstract: "Analysis code and de-identified summary tables for a clinical cohort, blood transcriptomic and single-cell virtual-perturbation study of deep-vein thrombosis after traumatic brain injury with lower-limb fracture. No patient-level data are included."
+authors:
+  - family-names: Wang
+    given-names: Wei
+    orcid: "https://orcid.org/0000-0001-6971-3461"
+    affiliation: "Department of Traumatic Surgery, Tongji Hospital, Tongji Medical College, Huazhong University of Science and Technology, Wuhan 430030, P.R. China"
+  - family-names: Sun
+    given-names: Shanshan
+    affiliation: "Department of Ultrasound Imaging, Tongji Hospital, Tongji Medical College, Huazhong University of Science and Technology, Wuhan 430030, P.R. China"
+  - family-names: Li
+    given-names: Hui
+    affiliation: "Department of Traumatic Surgery, Tongji Hospital, Tongji Medical College, Huazhong University of Science and Technology, Wuhan 430030, P.R. China"
+  - family-names: Li
+    given-names: Tianyu
+    affiliation: "Department of Traumatic Surgery, Tongji Hospital, Tongji Medical College, Huazhong University of Science and Technology, Wuhan 430030, P.R. China"
+  - family-names: Wang
+    given-names: Yuchang
+    affiliation: "Department of Traumatic Surgery, Tongji Hospital, Tongji Medical College, Huazhong University of Science and Technology, Wuhan 430030, P.R. China"
+version: 1.0.0
+date-released: "2026-10-13"
+license: MIT
+keywords:
+  - traumatic brain injury
+  - deep-vein thrombosis
+  - endothelium
+  - single-cell RNA sequencing
+  - virtual perturbation
+  - group-based trajectory modelling

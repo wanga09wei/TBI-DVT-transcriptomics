@@ -1,0 +1,12 @@
+{
+  "group_counts": {
+    "Distal calf only": 240,
+    "Proximal/trunk": 33,
+    "Unspecified": 9,
+    "Superficial only": 3
+  },
+  "bilateral": 66,
+  "superficial": 9,
+  "proximal": 33,
+  "distal_calf_only": 240
+}

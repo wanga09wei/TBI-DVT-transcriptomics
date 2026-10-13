@@ -1,0 +1,173 @@
+WARNING: adata.X seems to be already log-transformed.
+
+[data] EC 4802 cells | 面板 1510 基因 | 0.3 min
+[data] counts center (1510, 3785) / periph (1510, 1017)；log center (1510, 3785)
+
+[Job3] scTenifoldNet 差分调控：损伤中心 vs 外周 EC …
+Removed 1316 cells with lib size < 1000
+Removed 69 outlier cells from original data
+Found mitochondrial genes: ['MT-CO1', 'MT-CO2', 'MT-CO3', 'MT-CYB', 'MT-ND1', 'MT-ND4', 'MT-ND6']
+Removed 1603 samples from original data (mt genes ratio > 0.1)
+Removed 358 genes expressed in less than 0.05 of data
+Removed 0 genes with expression values: average < 0 or sum < 0
+finish QC: injury_center
+Removed 597 cells with lib size < 1000
+Removed 21 outlier cells from original data
+Found mitochondrial genes: ['MT-CO1', 'MT-CO2', 'MT-CO3', 'MT-CYB', 'MT-ND1', 'MT-ND4', 'MT-ND6']
+Removed 122 samples from original data (mt genes ratio > 0.1)
+Removed 337 genes expressed in less than 0.05 of data
+Removed 0 genes with expression values: average < 0 or sum < 0
+finish QC: peripheral
+process qc finished in 0.3887000000104308 secs.
+make_networks  processing time:  8.382058200018946
+make_networks  processing time:  15.900556700013112
+process nc finished in 24.289077800000086 secs.
+tensor_decomp  processing time:  2.6171372999961022
+tensor_decomp  processing time:  0.8150300999986939
+process td finished in 3.4865111999970395 secs.
+manifold_alignment  processing time:  3.197982999990927
+process ma finished in 3.2316540999745484 secs.
+d_regulation  processing time:  0.08115309997810982
+process dr finished in 0.08117210000636987 secs.
+[Job3] 完成 (1109, 7) (0.5 min) | 0.9 min
+[Job3] top10:
+    Gene  Distance  boxcox-transformed distance        Z         FC      p-value  adjusted p-value
+    MT2A  0.017591                     0.441769 3.958798 206.697190 7.218915e-47      8.005776e-44
+    MT1X  0.011887                     0.408105 3.469563  94.374757 2.611008e-22      1.447804e-19
+    MT1E  0.011427                     0.404862 3.422430  87.213248 9.742900e-21      3.601626e-18
+    MT1M  0.011092                     0.402436 3.387167  82.178944 1.243071e-19      3.446414e-17
+   HSPA5  0.009101                     0.386654 3.157805  55.323498 1.022390e-13      2.267662e-11
+    SAT1  0.008910                     0.385002 3.133799  53.029649 3.285514e-13      6.072725e-11
+  MT-CO1  0.008305                     0.379563 3.054748  46.067697 1.142366e-11      1.809834e-09
+PPP1R15A  0.007754                     0.374330 2.978697  40.156963 2.343547e-10      3.248742e-08
+   ACKR1  0.007302                     0.369809 2.913004  35.610116 2.410327e-09      2.970058e-07
+   TIMP1  0.006946                     0.366094 2.859002  32.224989 1.373133e-08      1.522804e-06
+
+[Job1] 虚拟敲除目标（QC 前预筛表达率≥15%）: ['F3', 'ANGPT2', 'CLDN5', 'VWF']
+[Job1] F3 已存在跳过
+[Job1] KO ANGPT2 …
+Removed 1316 cells with lib size < 1000
+Removed 69 outlier cells from original data
+Found mitochondrial genes: ['MT-CO1', 'MT-CO2', 'MT-CO3', 'MT-CYB', 'MT-ND1', 'MT-ND4', 'MT-ND6']
+Removed 1603 samples from original data (mt genes ratio > 0.1)
+Removed 358 genes expressed in less than 0.05 of data
+Removed 0 genes with expression values: average < 0 or sum < 0
+finish QC: WT
+process qc finished in 0.5182936000055633 secs.
+make_networks  processing time:  9.856329000002006
+process nc finished in 9.856394100002944 secs.
+tensor_decomp  processing time:  2.4406409000221174
+process td finished in 2.4725211999902967 secs.
+process ko finished in 0.006122999999206513 secs.
+manifold_alignment  processing time:  0.8074141000106465
+process ma finished in 0.8074391999980435 secs.
+d_regulation  processing time:  0.07722370000556111
+process dr finished in 0.07724579999921843 secs.
+[Job1] ANGPT2 完成 (0.2 min) | FDR<0.05 下游: ANGPT2(Z=4.88), SAT1(Z=3.87), HSPA5(Z=2.76), NR4A1(Z=2.63), HSPA1A(Z=2.59), DNAJB1(Z=2.50), HSPA1B(Z=2.49), LTBP4(Z=2.46), EMP1(Z=2.41), HERPUD1(Z=2.39), ACKR1(Z=2.32), TIMP1(Z=2.28), FGL2(Z=2.24), NNMT(Z=2.18)
+[Job1] ANGPT2 top15:
+   Gene        Z           FC  adjusted p-value
+ ANGPT2 4.879709 15596.867541      0.000000e+00
+   SAT1 3.874208   940.845237     7.467852e-204
+  HSPA5 2.756895    28.895868      2.932826e-05
+  NR4A1 2.626674    18.702282      4.400625e-03
+ HSPA1A 2.585114    16.254864      1.275662e-02
+ DNAJB1 2.498677    12.115205      9.252641e-02
+ HSPA1B 2.493363    11.897059      9.252641e-02
+  LTBP4 2.455258    10.440201      1.775547e-01
+   EMP1 2.408087     8.873983      3.702571e-01
+HERPUD1 2.386509     8.235580      4.732076e-01
+  ACKR1 2.318737     6.505754      1.000000e+00
+  TIMP1 2.284116     5.763159      1.000000e+00
+   FGL2 2.243772     5.000801      1.000000e+00
+   NNMT 2.184591     4.055928      1.000000e+00
+   CD55 2.073235     2.723484      1.000000e+00
+[Job1] 1.1 min
+[Job1] KO CLDN5 …
+Removed 1316 cells with lib size < 1000
+Removed 69 outlier cells from original data
+Found mitochondrial genes: ['MT-CO1', 'MT-CO2', 'MT-CO3', 'MT-CYB', 'MT-ND1', 'MT-ND4', 'MT-ND6']
+Removed 1603 samples from original data (mt genes ratio > 0.1)
+Removed 358 genes expressed in less than 0.05 of data
+Removed 0 genes with expression values: average < 0 or sum < 0
+finish QC: WT
+process qc finished in 0.3524277999822516 secs.
+make_networks  processing time:  9.181101899972418
+process nc finished in 9.181159600004321 secs.
+tensor_decomp  processing time:  1.7676645000174176
+process td finished in 1.8024115999869537 secs.
+process ko finished in 0.008440900011919439 secs.
+manifold_alignment  processing time:  0.8086450999835506
+process ma finished in 0.8086675000085961 secs.
+d_regulation  processing time:  0.07514629999059252
+process dr finished in 0.07516850001411512 secs.
+[Job1] CLDN5 完成 (0.2 min) | FDR<0.05 下游: CLDN5(Z=4.49), SAT1(Z=3.51), HSPA5(Z=2.55), NR4A1(Z=2.51), LTBP4(Z=2.40), EMP1(Z=2.37), HSPA1A(Z=2.36), HERPUD1(Z=2.34), HSPA1B(Z=2.27), TSHZ2(Z=2.27), IL1R1(Z=2.26), DNAJB1(Z=2.26), FGL2(Z=2.24), ACKR1(Z=2.20), MARCKS(Z=2.13)
+[Job1] CLDN5 top15:
+   Gene        Z           FC  adjusted p-value
+  CLDN5 4.486508 25663.055045      0.000000e+00
+   SAT1 3.511413   912.960337     8.606842e-198
+  HSPA5 2.546924    24.975861      2.229220e-04
+  NR4A1 2.512424    21.823333      8.609544e-04
+  LTBP4 2.397084    13.853531      4.553281e-02
+   EMP1 2.370659    12.474609      7.920403e-02
+ HSPA1A 2.359497    11.933220      9.074761e-02
+HERPUD1 2.337821    10.946525      1.350423e-01
+ HSPA1B 2.271718     8.403684      4.556603e-01
+  TSHZ2 2.268750     8.304184      4.556603e-01
+  IL1R1 2.262102     8.085450      4.635577e-01
+ DNAJB1 2.257661     7.942493      4.635577e-01
+   FGL2 2.240668     7.417861      5.722743e-01
+  ACKR1 2.202885     6.369547      9.552980e-01
+ MARCKS 2.126047     4.663969      1.000000e+00
+[Job1] 1.3 min
+[Job1] KO VWF …
+Removed 1316 cells with lib size < 1000
+Removed 69 outlier cells from original data
+Found mitochondrial genes: ['MT-CO1', 'MT-CO2', 'MT-CO3', 'MT-CYB', 'MT-ND1', 'MT-ND4', 'MT-ND6']
+Removed 1603 samples from original data (mt genes ratio > 0.1)
+Removed 358 genes expressed in less than 0.05 of data
+Removed 0 genes with expression values: average < 0 or sum < 0
+finish QC: WT
+process qc finished in 0.31315629999153316 secs.
+make_networks  processing time:  7.901559499994619
+process nc finished in 7.901619100011885 secs.
+tensor_decomp  processing time:  1.9607238000025973
+process td finished in 1.9952623000135645 secs.
+process ko finished in 0.006437200005166233 secs.
+manifold_alignment  processing time:  0.8030237999919336
+process ma finished in 0.8030472999962512 secs.
+d_regulation  processing time:  0.08089750001090579
+process dr finished in 0.08091809999314137 secs.
+[Job1] VWF 完成 (0.2 min) | FDR<0.05 下游: VWF(Z=4.54), SAT1(Z=3.42), ACKR1(Z=2.84), TIMP1(Z=2.77), NR4A1(Z=2.71), IL1R1(Z=2.65), HSPA1A(Z=2.65), HSPA1B(Z=2.60), DNAJB1(Z=2.59), NNMT(Z=2.55), EMP1(Z=2.47), CPE(Z=2.46), LIPG(Z=2.45), TSHZ2(Z=2.43), HSPA5(Z=2.43)
+[Job1] VWF top15:
+  Gene        Z           FC  adjusted p-value
+   VWF 4.537549 37452.081365      0.000000e+00
+  SAT1 3.423085   639.455556     2.527965e-138
+ ACKR1 2.836768    65.740937      1.974778e-13
+ TIMP1 2.770445    50.505531      3.422287e-10
+ NR4A1 2.714374    40.372895      4.834529e-08
+ IL1R1 2.648666    31.016869      4.911275e-06
+HSPA1A 2.646119    30.700615      4.954746e-06
+HSPA1B 2.601942    25.694108      5.760672e-05
+DNAJB1 2.585688    24.061392      1.194401e-04
+  NNMT 2.549067    20.746743      6.038862e-04
+  EMP1 2.469764    15.029010      1.108760e-02
+   CPE 2.459565    14.416541      1.406494e-02
+  LIPG 2.454508    14.121978      1.518250e-02
+ TSHZ2 2.431371    12.847915      2.651216e-02
+ HSPA5 2.430603    12.807620      2.651216e-02
+[Job1] 1.5 min
+
+[Job2] 虚拟过表达（PCNet 网络传播，log 数据）…
+make_networks  processing time:  10.349130899994634
+[Job2] OE ANGPT2 → top 下游: ['BSG', 'ADM', 'SLC2A3', 'SCARB1', 'SLC7A5', 'BTNL9', 'HSPA1B', 'HSPA1A', 'CA4', 'DCLK1']
+[Job2] OE F3 → top 下游: ['ACKR1', 'IL1R1', 'TIMP1', 'TSHZ2', 'PDLIM1', 'NNMT', 'CPE', 'MMRN1', 'LIPG', 'MARCKS']
+[Job2] OE ESM1 → top 下游: ['MTRNR2L12', 'MGP', 'PLCG2', 'GJA5', 'NFIX', 'APLN', 'ZNF558', 'NAIF1', 'PLXNB1', 'SLC25A25-AS1']
+[Job2] 完成 | 1.7 min
+
+[Job4] decoupler TF 活性（CollecTRI）…
+WARNING: adata.X seems to be already log-transformed.
+[Job4] center-up TF top10: MYC, JUN, ATF1, ZBED1, ZBTB4, ELK4, AP1, EGR1, AR, JUNB
+[Job4] periph-up TF top10: DACH1, ELK3, SMARCA4, HDAC1, HOXD8, FOXC2, NFAT5, CREM, KLF17, ELF2
+[Job4] 完成 | 1.9 min
+
+=== S3 结束，总耗时 1.9 min ===

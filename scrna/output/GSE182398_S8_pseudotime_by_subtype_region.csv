@@ -1,0 +1,7 @@
+﻿subtype,region,count,median
+Arterial,center,1976,0.43167994916439056
+Arterial,peripheral,252,0.4263359308242798
+Capillary,center,1354,0.29171428084373474
+Capillary,peripheral,908,0.23452842980623245
+Venous,center,1228,0.7187416553497314
+Venous,peripheral,37,0.6063182950019836

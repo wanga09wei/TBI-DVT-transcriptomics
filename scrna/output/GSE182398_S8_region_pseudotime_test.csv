@@ -1,0 +1,4 @@
+﻿subtype,n_center,n_periph,median_center,median_periph,P_center_vs_periph
+Arterial,1976,252,0.4317,0.4263,0.013356978463309998
+Capillary,1354,908,0.2917,0.2345,8.098938813404705e-07
+Venous,1228,37,0.7187,0.6063,1.546570856242641e-05
