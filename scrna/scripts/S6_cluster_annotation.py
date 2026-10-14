@@ -29,7 +29,11 @@ for cl in targets:
         df = sc.get.rank_genes_groups_df(sub, group='TBI')
         up = ', '.join(df.sort_values('logfoldchanges', ascending=False).head(12).names)
     except Exception as e:
-        up = f'(失败: {e})'
+        # Clusters with 0 or 1 control cells cannot support a two-group test.
+        # Emit an English, publication-safe note (the raw exception text used to
+        # be written verbatim into the released CSV).
+        n_ctr = int((sub.obs.group == 'CTR').sum())
+        up = 'not estimable (%d control cell%s in this cluster)' % (n_ctr, '' if n_ctr == 1 else 's')
     rows.append({
         'leiden': cl,
         'n_TBI': int((sub.obs.group == 'TBI').sum()),

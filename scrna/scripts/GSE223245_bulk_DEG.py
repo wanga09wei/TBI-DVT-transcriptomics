@@ -12,6 +12,34 @@ import gzip, os, re, csv
 import numpy as np, pandas as pd
 from scipy import stats
 
+
+def bh_fdr(p):
+    """Benjamini-Hochberg adjusted p-values, returned in the input order and
+    capped at 1.0 (NaN preserved).
+
+    NOTE (2026-10-14): replaces an inline implementation that (i) omitted the
+    trailing [::-1] on the cumulative minimum, leaving the adjusted values
+    ordered by descending p, and (ii) un-sorted them with
+    np.argsort(np.argsort(p)), which is not the inverse permutation. The
+    published FDR column was therefore mis-aligned with its p-values and
+    contained values greater than 1.
+    """
+    p = np.asarray(p, dtype=float)
+    q = np.full(p.shape, np.nan)
+    m = np.isfinite(p)
+    if m.sum() == 0:
+        return q
+    pv = p[m]
+    n = pv.size
+    order = np.argsort(pv, kind='mergesort')
+    ranked = pv[order] * n / (np.arange(n) + 1)
+    ranked = np.minimum.accumulate(ranked[::-1])[::-1]
+    out = np.empty(n)
+    out[order] = np.minimum(ranked, 1.0)
+    q[m] = out
+    return q
+
+
 SCRNA = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(SCRNA, 'data'); OUT = os.path.join(SCRNA, 'output')
 os.makedirs(OUT, exist_ok=True)
@@ -75,12 +103,7 @@ res = pd.DataFrame({'probe': X.index, 'gene': X['gene'].values, 'log2FC_TBI_vs_C
 rho = [stats.spearmanr(Xv.iloc[i].values, sev, nan_policy='omit')[0] for i in range(Xv.shape[0])]
 psp = [stats.spearmanr(Xv.iloc[i].values, sev, nan_policy='omit')[1] for i in range(Xv.shape[0])]
 res['rho_severity'] = rho; res['P_severity'] = psp
-ok = res['P'].notna()
-res['FDR'] = np.nan
-m = ok.values
-padj = np.minimum.accumulate((np.sort(res.loc[m, 'P'].values) * len(res[m]) /
-                              (np.arange(len(res[m]))[::-1] + 1))[::-1])
-res.loc[m, 'FDR'] = padj[np.argsort(np.argsort(res.loc[m, 'P'].values))]
+res['FDR'] = bh_fdr(res['P'].values)
 res = res.sort_values('P')
 sig = res[(res.FDR < 0.05) & (res.log2FC_TBI_vs_Ctrl.abs() > 0.58)]
 print(f'显著探针（FDR<0.05 & |log2FC|>0.58）: {len(sig)}')

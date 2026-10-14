@@ -1,8 +1,8 @@
 ﻿leiden,n_TBI,n_CTR,log2OR,official_label_top3,TBI_up_markers
-29,2454,0,12.13607940466934,Oligo(2454),(失败: reference = CTR needs to be one of groupby = ['TBI'].)
+29,2454,0,12.13607940466934,Oligo(2454),not estimable (0 control cells in this cluster)
 38,2955,3,9.61140607462093,Astro(2953); VLMC(2); Vip(2),"ASB3, GLI3, FP236383.3, HIF3A, AHCYL1, AL109809.5, AC091826.2, KCNN3, CHPT1, AC114971.1, GAREM1, BIRC6"
-40,1165,1,9.439198195805856,Oligo(1165); Endo(1),(失败: Could not calculate statistics for groups CTR since they only contain one sample.)
-41,621,1,8.516575203297169,OPC(622),(失败: Could not calculate statistics for groups CTR since they only contain one sample.)
+40,1165,1,9.439198195805856,Oligo(1165); Endo(1),not estimable (1 control cell in this cluster)
+41,621,1,8.516575203297169,OPC(622),not estimable (1 control cell in this cluster)
 23,2054,6,8.167093425119834,Astro(2027); Microglial cells(28); Endo(4),"EFEMP1, OSBPL11, AL391807.1, JAKMIP2, ARHGEF26-AS1, AC091078.1, GNAS, AC138627.1, MAPRE2, CTNNA1, ZNF248, ATF7"
 14,2177,8,7.867482891749297,L2/3 IT(2167); L5 IT(15); Lamp5(3),"TNRC18, GRIK5, CCDC84, REEP1, NTNG1, AL162493.1, NUDCD3, LAMA2, NPHP4, ENOSF1, DNAH14, TPR"
 12,4675,41,6.756235809470647,L2/3 IT(4686); L5 IT(26); Microglial cells(4),"TRIQK, MRPS35, IFNGR1, VPS4B, PCBD2, AC021683.5, UNC45A, CRCP, LSM8, IFNAR2, RNPEP, ZNF727"

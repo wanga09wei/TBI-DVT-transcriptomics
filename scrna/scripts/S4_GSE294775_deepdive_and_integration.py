@@ -16,6 +16,36 @@ import scanpy as sc
 import matplotlib; matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
+def bh_fdr(p):
+    """Benjamini-Hochberg adjusted p-values.
+
+    Returns the adjusted values in the SAME order as the input (not sorted),
+    capped at 1.0. Non-finite inputs are returned as NaN.
+
+    NOTE (2026-10-14): the previous inline implementation
+        q = np.minimum.accumulate((np.sort(p) * n / (np.arange(n)[::-1] + 1))[::-1])
+        out = q[np.argsort(np.argsort(p))]
+    was wrong twice over: the missing trailing [::-1] left q ordered by
+    *descending* p, and np.argsort(np.argsort(p)) is not the inverse
+    permutation that maps sorted values back to the original rows. The result
+    was an FDR column mis-aligned with its p-values (values > 1 appeared).
+    """
+    p = np.asarray(p, dtype=float)
+    q = np.full(p.shape, np.nan)
+    m = np.isfinite(p)
+    if m.sum() == 0:
+        return q
+    pv = p[m]
+    n = pv.size
+    order = np.argsort(pv, kind='mergesort')
+    ranked = pv[order] * n / (np.arange(n) + 1)
+    ranked = np.minimum.accumulate(ranked[::-1])[::-1]
+    out = np.empty(n)
+    out[order] = np.minimum(ranked, 1.0)
+    q[m] = out
+    return q
+
+
 OUT = r'D:/TBI_DVT_Study/scrna/output'
 FIGDIR = r'D:/TBI_DVT_Study/figures'
 sc.settings.verbosity = 0
@@ -37,9 +67,7 @@ def celltype_shift(key, min_n=50):
                      'pct_TBI': 100 * t / tot_t, 'pct_CTR': 100 * c / tot_c,
                      'log2OR': np.log2(OR), 'P_chi2': p})
     df = pd.DataFrame(rows).sort_values('P_chi2')
-    o = df.P_chi2.values; n = len(o)
-    q = np.minimum.accumulate((np.sort(o) * n / (np.arange(n)[::-1] + 1))[::-1])
-    df['FDR'] = q[np.argsort(np.argsort(o))]
+    df['FDR'] = bh_fdr(df.P_chi2.values)
     return df
 
 for key in ['celltype_l1', 'celltype_l2']:
@@ -78,9 +106,7 @@ for ct in TYPES:
                      'mean_TBI': t.mean(), 'mean_CTR': c.mean(),
                      'log2ratio': np.log2((t.mean() + 1e-3) / (c.mean() + 1e-3)), 'P_MWU': p})
 deg = pd.DataFrame(rows)
-ok = deg.P_MWU.notna().values
-q = np.minimum.accumulate((np.sort(deg.loc[ok, 'P_MWU'].values) * ok.sum() / (np.arange(ok.sum())[::-1] + 1))[::-1])
-deg.loc[ok, 'FDR'] = q[np.argsort(np.argsort(deg.loc[ok, 'P_MWU'].values))]
+deg['FDR'] = bh_fdr(deg['P_MWU'].values)
 deg.to_csv(os.path.join(OUT, 'S4_percelltype_DEG_TBI_vs_CTR.csv'), index=False, encoding='utf-8-sig')
 sig = deg[(deg.FDR < 0.05) & (deg.log2ratio.abs() > 0.3)]
 print(f'\n=== 逐类型 DEG 显著 {len(sig)}/{len(deg)} ===')

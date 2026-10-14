@@ -12,6 +12,34 @@ from scipy import stats
 warnings.filterwarnings('ignore')
 import scanpy as sc
 
+
+def bh_fdr(p):
+    """Benjamini-Hochberg adjusted p-values, returned in the input order and
+    capped at 1.0 (NaN preserved).
+
+    NOTE (2026-10-14): replaces an inline implementation that (i) omitted the
+    trailing [::-1] on the cumulative minimum, leaving the adjusted values
+    ordered by descending p, and (ii) un-sorted them with
+    np.argsort(np.argsort(p)), which is not the inverse permutation. The
+    published FDR column was therefore mis-aligned with its p-values and
+    contained values greater than 1.
+    """
+    p = np.asarray(p, dtype=float)
+    q = np.full(p.shape, np.nan)
+    m = np.isfinite(p)
+    if m.sum() == 0:
+        return q
+    pv = p[m]
+    n = pv.size
+    order = np.argsort(pv, kind='mergesort')
+    ranked = pv[order] * n / (np.arange(n) + 1)
+    ranked = np.minimum.accumulate(ranked[::-1])[::-1]
+    out = np.empty(n)
+    out[order] = np.minimum(ranked, 1.0)
+    q[m] = out
+    return q
+
+
 OUT = r'D:/TBI_DVT_Study/scrna/output'
 A = sc.read_h5ad(os.path.join(OUT, 'GSE294775_qc_clustered.h5ad'))
 print(A.shape, A.obs.columns.tolist())
@@ -64,10 +92,7 @@ for g in present:
                       'P_MWU': p})
 diff = pd.DataFrame(rows2)
 # BH 校正
-ok = diff['P_MWU'].notna().values
-q = np.minimum.accumulate((np.sort(diff.loc[ok, 'P_MWU'].values) * ok.sum() /
-                           (np.arange(ok.sum())[::-1] + 1))[::-1])
-diff.loc[ok, 'FDR'] = q[np.argsort(np.argsort(diff.loc[ok, 'P_MWU'].values))]
+diff['FDR'] = bh_fdr(diff['P_MWU'].values)
 diff.to_csv(os.path.join(OUT, 'GSE294775_candidate_gene_diff.csv'),
             index=False, encoding='utf-8-sig')
 sig = diff[(diff.FDR < 0.05) & (diff.log2ratio.abs() > 0.25)]
